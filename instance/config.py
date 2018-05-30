@@ -17,6 +17,8 @@ class Production(Config):
 class Testing(object):
     DEBUG = True
     TESTING = True
+    SQLALCHEMY_DATABASE_URI = "postgres://localhost/test_hr"
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 app_config = {
     'development': Development,
