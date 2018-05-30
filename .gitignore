@@ -1,1 +1,4 @@
 .idea/
+my_envs.sh
+*.pyc
+*__pycache__/
