@@ -16,3 +16,9 @@ def create_new_task(task_data):
 def get_task_details_from_db(task_id):
     task = Task.query.filter_by(id=task_id).first()
     return task
+
+def update_task_data_in_db(task, task_data):
+    for key, value in task_data.items():
+        setattr(task, key, value)
+    task.update()
+    return task
