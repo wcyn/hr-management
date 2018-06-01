@@ -40,3 +40,13 @@ def get_json_task_details(task_id):
     if errors:
         return format_error_message(errors, message="Unable to fetch the requested task")
     return task
+
+def update_task_details(task_id, task_data):
+    task = abort_if_task_not_exists(task_id)
+    task_data, error = task_schema.loads(task_data)
+    if error:
+        return error
+    for key, value in task_data.items():
+        setattr(task, key, value)
+    task.update()
+    return task_schema.dump(task)
