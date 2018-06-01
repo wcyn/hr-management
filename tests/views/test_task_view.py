@@ -91,6 +91,9 @@ def test_create_new_task(client, mocker):
     assert task_data.get("department") == "IT"
     assert result.status_code == 201
 
+def get_task_details(client):
+    pass
+
 def test_delete_task():
     pass
 
