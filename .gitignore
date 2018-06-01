@@ -1,0 +1,5 @@
+.idea/
+my_envs.sh
+*.pyc
+*__pycache__/
+*.pytest_cache/
