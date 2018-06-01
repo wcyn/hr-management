@@ -12,6 +12,5 @@ class Tasks(Resource):
 
     def post(self):
         task_data = json.dumps(request.get_json())
-        print("\n\nTask: ", task_data)
         result = handle_post_task(task_data)
         return result
