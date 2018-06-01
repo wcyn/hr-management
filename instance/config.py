@@ -4,6 +4,7 @@ class Config(object):
     DEBUG = False
     TESTING = False
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class Development(Config):
     DEBUG = True
@@ -18,7 +19,6 @@ class Testing(object):
     DEBUG = True
     TESTING = True
     SQLALCHEMY_DATABASE_URI = "postgres://localhost/test_hr"
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 app_config = {
     'development': Development,
