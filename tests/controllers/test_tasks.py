@@ -4,7 +4,7 @@ def test_get_tasks_json(mocker):
 def test_handle_post_task(mocker):
     pass
 
-def test_get_task_details(mocker):
+def test_get_json_task_details(mocker):
     pass
 
 def test_delete_task(mocker):

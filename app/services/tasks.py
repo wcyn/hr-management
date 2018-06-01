@@ -12,3 +12,7 @@ def create_new_task(task_data):
             setattr(task, field, task_data.get(field))
     task.create()
     return task
+
+def get_task_details_from_db(task_id):
+    task = Task.query.filter_by(id=task_id).first()
+    return task

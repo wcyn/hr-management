@@ -1,4 +1,4 @@
-from app.services.tasks import get_tasks_from_database, create_new_task
+from app.services.tasks import get_tasks_from_database, create_new_task, get_task_details_from_db
 
 def test_get_tasks_from_database(mocker):
     mock_task_1 = mocker.Mock(description='Task 1', department='IT')
@@ -34,3 +34,15 @@ def test_create_new_task(mocker, monkeypatch):
     assert task.description == 'Task 1'
     assert task.department == 'IT'
 
+def test_get_task_details_from_db(mocker, monkeypatch):
+    mock_task = mocker.Mock()
+    mock_model = mocker.patch("app.services.tasks.Task")
+    monkeypatch.setattr(mock_task, 'description', 'Task 1')
+    monkeypatch.setattr(mock_task, 'department', 'IT')
+    monkeypatch.setattr(mock_task, 'id', 1)
+    mock_model.query.filter_by(id=1).first.return_value = mock_task
+
+    task = get_task_details_from_db(1)
+    mock_model.query.filter_by(id=1).first.assert_called_once_with()
+    assert task.description == 'Task 1'
+    assert task.department == 'IT'
