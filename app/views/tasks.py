@@ -1,8 +1,9 @@
+import json
+
 from flask_restful import Resource
 from flask import request
 
-from app.models.tasks import Task
-from app.controllers.tasks import get_tasks_json
+from app.controllers.tasks import get_tasks_json, handle_post_task
 
 
 class Tasks(Resource):
@@ -10,15 +11,7 @@ class Tasks(Resource):
         return get_tasks_json()
 
     def post(self):
-        task_data = request.get_json()
-        task = Task(description=task_data.get("description"),
-                    department=task_data.get("department"))
-        task.create()
-
-        task_data = {
-            'id': task.id,
-            'description': task.description,
-            'department': task.department
-        }
-
-        return task_data
+        task_data = json.dumps(request.get_json())
+        print("\n\nTask: ", task_data)
+        result = handle_post_task(task_data)
+        return result
