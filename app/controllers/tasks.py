@@ -1,7 +1,15 @@
 from marshmallow import Schema, fields
+from flask_restful import abort
 
 from app.controllers import format_error_message
 from app.services.tasks import get_tasks_from_database, create_new_task
+from app.models.tasks import Task
+
+def abort_if_task_not_exists(task_id):
+    task = Task.query.filter_by(id=task_id).first()
+    if not task:
+        return abort(404, message="Task with id {} does not exist.".format(task_id))
+    return task
 
 class TaskSchema(Schema):
     id = fields.Integer(required=True, dump_only=True)
@@ -25,3 +33,10 @@ def handle_post_task(task_data):
     task = create_new_task(task_data)
 
     return task_schema.dump(task), 201
+
+def get_task_details(task_id):
+    task = abort_if_task_not_exists(task_id)
+    task, errors = task_schema.dump(task)
+    if errors:
+        return format_error_message(errors, message="Unable to fetch the requested task")
+    return task
